@@ -1,0 +1,122 @@
+<div class="card">
+  <div class="card-body">
+    <nav class="navbar navbar-light justify-content-between">
+      <div class="mb-3">
+        <a class="navbar-brand"><i class="fa fa-users"></i> Clientes</a>
+        <a class="btn btn-primary btn-sm" href="/cliente/cadastrar"><i
+          class="fa fa-plus"></i> Adicionar</a>
+      </div>
+      <div class="list mb-2 row">
+        <div class="col-sm-2">
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Id"
+              [(ngModel)]="id"
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nome"
+              [(ngModel)]="nome"
+            />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Idade"
+              [(ngModel)]="idade"
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Cidade"
+              [(ngModel)]="cidade"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                (click)="buscar()"
+              >
+                Buscar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 pl-0 ml-0">
+        <div class="form-group">
+          <label for="ordenar">Ordenar por:</label>
+          <select (change)="buscar()" class="form-control" name="ordenar" id="ordenar">
+            <option value="-id">Maior Id</option>
+            <option value="id">Menor Id</option>
+            <option selected value="nome">Nome</option>
+            <option value="-idade">Maior Idade</option>
+            <option value="idade">Menor Idade</option>
+            <option value="cidade">Cidade</option>
+          </select>
+        </div>
+      </div>
+
+    </nav>
+    <br>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Cidade</th>
+          <th class="text-center">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let cliente of clientes">
+          <tr>
+            <td> {{ cliente.id }}</td>
+            <td> {{ cliente.nome }}</td>
+            <td> {{ cliente.idade }}</td>
+            <td> {{ cliente.cidade }}</td>
+            <td class="text-center">
+              <a href="/cliente/alterar/{{ cliente.id }}" class="btn btn-outline-primary mr-1">
+                <i class="fa fa-pen"></i> Alterar</a>
+              <a (click)="excluirCliente(cliente.id)" class="btn btn-outline-danger">
+                <i class="fa fa-trash"></i> Excluir</a>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+      <div class="">
+        <hr>
+        <b>Total de registros: {{ total }}</b>
+        <br>
+        <div class="d-inline">
+          <button (click)="buscar(anterior)" *ngIf="anterior" class="btn btn-outline-dark mr-1">
+            <i class="fa fa-arrow-left"></i> Anterior
+          </button>
+          <button (click)="buscar(proximo)" *ngIf="proximo" class="btn btn-outline-dark">
+            Próxima <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
